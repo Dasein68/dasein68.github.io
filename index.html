@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>革命的マルクス主義の学習</title>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP');
+
+            #main {
+                margin: 0 auto;
+                font-size: 18px;
+                font-weight: normal;
+                font-optical-sizing: none;
+                font-family: "Noto Serif JP", monospace;
+                max-width: calc(18px * 34 + 10px);
+                line-height: 2.25rem;
+                strong {
+                    letter-spacing: -0.025rem;
+                }
+                rt {
+                    font-size: 50%;
+                    ruby-align: center;
+                    margin-left: -1rem;
+                    margin-right: -1rem;  
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main"></div>
+
+        <script type="module">
+            import MarkdownIt from 'https://cdn.jsdelivr.net/npm/markdown-it@15.0.2/+esm'
+            import rubyPlugin from 'https://cdn.jsdelivr.net/npm/markdown-it-ruby@1.1.2/+esm'
+
+            async function view(path) {
+                const txt = (await (await fetch(path)).text());
+                const md = new MarkdownIt({ breaks: true }).use(rubyPlugin);
+                document.getElementById("main").innerHTML += md.render(txt);
+            }
+
+            view("marxism.md")
+        </script>
+    </body>
+</html>
